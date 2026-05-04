@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-[#0B1220] text-white">
+    <footer className="border-t border-white/10 bg-[#0B1220]">
       <div className="max-w-7xl mx-auto px-6 py-10">
         <div className="grid md:grid-cols-3 gap-8">
           <div>
@@ -13,15 +13,24 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="font-semibold mb-3">Hesaplama Araçları</h3>
+            <h3 className="font-semibold mb-3">Araçlar</h3>
             <div className="space-y-2 text-sm text-white/60">
-              <a href="/trendyol-kazanc-hesaplama" className="block hover:text-green-400">
+              <a
+                href="/trendyol-kazanc-hesaplama"
+                className="block hover:text-green-400"
+              >
                 Trendyol Kazanç Hesaplama
               </a>
-              <a href="/kredi-hesaplama" className="block hover:text-green-400">
+              <a
+                href="/kredi-hesaplama"
+                className="block hover:text-green-400"
+              >
                 Kredi Hesaplama
               </a>
-              <a href="/faiz-hesaplama" className="block hover:text-green-400">
+              <a
+                href="/faiz-hesaplama"
+                className="block hover:text-green-400"
+              >
                 Faiz Hesaplama
               </a>
             </div>

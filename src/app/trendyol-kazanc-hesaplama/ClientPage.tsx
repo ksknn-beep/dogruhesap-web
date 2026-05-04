@@ -21,10 +21,17 @@ export default function TrendyolKazancHesaplama() {
   const netKazanc = satis - toplamGider;
   const karMarji = satis > 0 ? (netKazanc / satis) * 100 : 0;
 
+  const formatTL = (v: number) =>
+    v.toLocaleString("tr-TR", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }) + " TL";
+
   return (
     <main className="min-h-screen bg-[#0B1220] text-white">
-      <section className="max-w-7xl mx-auto px-6 py-8">
-        <div className="text-sm text-white/50 mb-6">
+      <section className="mx-auto max-w-7xl px-6 py-8">
+        {/* Breadcrumb */}
+        <div className="mb-6 text-sm text-white/45">
           <a href="/" className="hover:text-green-400">
             Ana Sayfa
           </a>
@@ -34,132 +41,143 @@ export default function TrendyolKazancHesaplama() {
           <span className="text-white/80">Trendyol Kazanç Hesaplama</span>
         </div>
 
-        <div className="grid lg:grid-cols-[1fr_320px] gap-8">
+        {/* SEO HERO */}
+        <div className="mb-8 rounded-[32px] border border-white/10 bg-gradient-to-br from-white/[0.08] to-white/[0.03] p-7 md:p-9">
+          <span className="mb-5 inline-flex rounded-full border border-green-400/20 bg-green-400/10 px-4 py-2 text-sm font-medium text-green-300">
+            Trendyol satıcıları için net kâr hesaplama aracı
+          </span>
+
+          <h1 className="max-w-4xl text-[38px] font-semibold leading-[1.08] tracking-[-0.04em] md:text-[56px]">
+            Trendyol Kazanç Hesaplama{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-emerald-500">
+              2026
+            </span>
+          </h1>
+
+          <p className="mt-5 max-w-3xl text-lg leading-relaxed text-white/70">
+            Satış fiyatı, ürün maliyeti, Trendyol komisyon oranı, kargo ücreti
+            ve KDV oranını girerek tahmini net kazancını ve kâr marjını anında
+            hesapla.
+          </p>
+        </div>
+
+        <div className="grid gap-8 lg:grid-cols-[1fr_320px]">
           <div>
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8">
-              <span className="inline-block rounded-full bg-green-400/10 border border-green-400/20 px-4 py-2 text-sm text-green-300 mb-5">
-                E-ticaret hesaplama aracı
-              </span>
-
-              <h1 className="text-3xl md:text-4xl font-bold">
-                Trendyol Kazanç Hesaplama
-              </h1>
-
-              <p className="text-white/65 mt-4 max-w-3xl">
-                Satış fiyatı, ürün maliyeti, komisyon, kargo ve KDV oranını
-                girerek Trendyol satışından tahmini net kazancını ve kâr
-                marjını hesapla.
-              </p>
-
-              <div className="grid md:grid-cols-2 gap-8 mt-8">
-                <div className="rounded-2xl bg-[#111827] border border-white/10 p-6">
-                  <label className="block text-sm text-white/70 mb-2">
-                    Satış Fiyatı (TL)
-                  </label>
-                  <input
-                    value={satisFiyati}
-                    onChange={(e) => setSatisFiyati(e.target.value)}
-                    type="number"
-                    placeholder="Örn: 1200"
-                    className="w-full mb-5 rounded-lg bg-[#0B1220] border border-white/10 px-4 py-3 outline-none focus:border-green-400"
-                  />
-
-                  <label className="block text-sm text-white/70 mb-2">
-                    Ürün Maliyeti (TL)
-                  </label>
-                  <input
-                    value={urunMaliyeti}
-                    onChange={(e) => setUrunMaliyeti(e.target.value)}
-                    type="number"
-                    placeholder="Örn: 650"
-                    className="w-full mb-5 rounded-lg bg-[#0B1220] border border-white/10 px-4 py-3 outline-none focus:border-green-400"
-                  />
-
-                  <label className="block text-sm text-white/70 mb-2">
-                    Komisyon Oranı (%)
-                  </label>
-                  <input
-                    value={komisyon}
-                    onChange={(e) => setKomisyon(e.target.value)}
-                    type="number"
-                    className="w-full mb-5 rounded-lg bg-[#0B1220] border border-white/10 px-4 py-3 outline-none focus:border-green-400"
-                  />
-
-                  <label className="block text-sm text-white/70 mb-2">
-                    Kargo Ücreti (TL)
-                  </label>
-                  <input
-                    value={kargo}
-                    onChange={(e) => setKargo(e.target.value)}
-                    type="number"
-                    placeholder="Örn: 200"
-                    className="w-full mb-5 rounded-lg bg-[#0B1220] border border-white/10 px-4 py-3 outline-none focus:border-green-400"
-                  />
-
-                  <label className="block text-sm text-white/70 mb-2">
-                    KDV Oranı (%)
-                  </label>
-                  <input
-                    value={kdv}
-                    onChange={(e) => setKdv(e.target.value)}
-                    type="number"
-                    className="w-full rounded-lg bg-[#0B1220] border border-white/10 px-4 py-3 outline-none focus:border-green-400"
-                  />
-                </div>
-
-                <div className="rounded-2xl bg-gradient-to-br from-green-500/15 to-blue-500/10 border border-green-400/20 p-6">
-                  <h2 className="text-xl font-semibold mb-6">
-                    Hesaplama Sonucu
+            {/* CALCULATOR */}
+            <div className="rounded-[32px] border border-white/10 bg-white/[0.05] p-6 md:p-8">
+              <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+                {/* Form */}
+                <div className="rounded-3xl border border-white/10 bg-[#0B1220]/70 p-5 md:p-6">
+                  <h2 className="mb-5 text-xl font-semibold">
+                    Bilgileri Gir
                   </h2>
 
-                  <div className="space-y-4 text-sm">
-                    <div className="flex justify-between border-b border-white/10 pb-3">
-                      <span className="text-white/60">Satış Fiyatı</span>
-                      <strong>{satis.toFixed(2)} TL</strong>
-                    </div>
+                  <div className="grid gap-5">
+                    <Field
+                      label="Satış Fiyatı (TL)"
+                      value={satisFiyati}
+                      setValue={setSatisFiyati}
+                      placeholder="Örn: 1200"
+                    />
 
-                    <div className="flex justify-between border-b border-white/10 pb-3">
-                      <span className="text-white/60">Toplam Gider</span>
-                      <strong>{toplamGider.toFixed(2)} TL</strong>
-                    </div>
+                    <Field
+                      label="Ürün Maliyeti (TL)"
+                      value={urunMaliyeti}
+                      setValue={setUrunMaliyeti}
+                      placeholder="Örn: 650"
+                    />
 
-                    <div className="flex justify-between border-b border-white/10 pb-3">
-                      <span className="text-white/60">Komisyon</span>
-                      <strong>{komisyonTutari.toFixed(2)} TL</strong>
-                    </div>
+                    <div className="grid gap-5 sm:grid-cols-3">
+                      <Field
+                        label="Komisyon (%)"
+                        value={komisyon}
+                        setValue={setKomisyon}
+                        placeholder="17"
+                      />
 
-                    <div className="flex justify-between border-b border-white/10 pb-3">
-                      <span className="text-white/60">KDV</span>
-                      <strong>{kdvTutari.toFixed(2)} TL</strong>
-                    </div>
+                      <Field
+                        label="Kargo (TL)"
+                        value={kargo}
+                        setValue={setKargo}
+                        placeholder="200"
+                      />
 
-                    <div className="rounded-xl bg-[#0B1220]/70 p-4 mt-5">
-                      <div className="flex justify-between text-lg">
-                        <span>Net Kazanç</span>
-                        <strong
-                          className={
-                            netKazanc >= 0 ? "text-green-400" : "text-red-400"
-                          }
-                        >
-                          {netKazanc.toFixed(2)} TL
-                        </strong>
-                      </div>
-
-                      <div className="flex justify-between text-sm mt-2 text-white/70">
-                        <span>Kâr Marjı</span>
-                        <strong>{karMarji.toFixed(2)}%</strong>
-                      </div>
+                      <Field
+                        label="KDV (%)"
+                        value={kdv}
+                        setValue={setKdv}
+                        placeholder="20"
+                      />
                     </div>
+                  </div>
+
+                  <div className="mt-5 rounded-2xl border border-green-400/20 bg-green-400/10 p-4 text-sm text-green-200">
+                    İpucu: Komisyon oranını kendi ürün kategorine göre
+                    girersen sonuç daha doğru olur.
+                  </div>
+                </div>
+
+                {/* Result */}
+                <div className="rounded-3xl border border-green-400/20 bg-gradient-to-br from-green-500/15 to-blue-500/10 p-6">
+                  <p className="text-sm font-medium text-white/60">
+                    Tahmini Net Kazanç
+                  </p>
+
+                  <div
+                    className={`mt-3 text-5xl font-semibold tracking-[-0.04em] ${
+                      netKazanc >= 0 ? "text-green-400" : "text-red-400"
+                    }`}
+                  >
+                    {formatTL(netKazanc)}
+                  </div>
+
+                  <div className="mt-3 text-white/70">
+                    Kâr marjı:{" "}
+                    <strong
+                      className={
+                        karMarji >= 0 ? "text-green-400" : "text-red-400"
+                      }
+                    >
+                      %{karMarji.toFixed(2)}
+                    </strong>
+                  </div>
+
+                  <div className="mt-7 grid gap-3">
+                    <ResultRow label="Satış Fiyatı" value={formatTL(satis)} />
+                    <ResultRow
+                      label="Ürün Maliyeti"
+                      value={formatTL(maliyet)}
+                    />
+                    <ResultRow
+                      label="Trendyol Komisyonu"
+                      value={formatTL(komisyonTutari)}
+                    />
+                    <ResultRow label="Kargo" value={formatTL(kargoUcreti)} />
+                    <ResultRow label="KDV" value={formatTL(kdvTutari)} />
+                    <ResultRow
+                      label="Toplam Gider"
+                      value={formatTL(toplamGider)}
+                      strong
+                    />
+                  </div>
+
+                  <div
+                    className={`mt-6 rounded-2xl p-4 text-sm font-medium ${
+                      netKazanc >= 0
+                        ? "bg-green-400/10 text-green-300"
+                        : "bg-red-400/10 text-red-300"
+                    }`}
+                  >
+                    {netKazanc >= 0
+                      ? "Bu satış kârlı görünüyor. Yine de reklam, iade ve paketleme giderlerini ayrıca düşün."
+                      : "Bu satış zarar ettiriyor. Satış fiyatını, kargo maliyetini veya komisyon oranını tekrar kontrol et."}
                   </div>
                 </div>
               </div>
             </div>
 
-            <section className="mt-8 rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8">
-              <h2 className="text-2xl font-semibold mb-5">
-                Detaylı Gider Tablosu
-              </h2>
-
+            {/* DETAIL TABLE */}
+            <ContentCard title="Detaylı Gider Tablosu">
               <div className="overflow-hidden rounded-2xl border border-white/10">
                 <table className="w-full text-sm">
                   <tbody>
@@ -175,142 +193,184 @@ export default function TrendyolKazancHesaplama() {
                         key={label as string}
                         className="border-b border-white/10 last:border-0"
                       >
-                        <td className="px-4 py-3 text-white/65">{label}</td>
-                        <td className="px-4 py-3 text-right font-semibold">
-                          {(value as number).toFixed(2)} TL
+                        <td className="px-4 py-4 text-white/65">{label}</td>
+                        <td className="px-4 py-4 text-right font-semibold">
+                          {formatTL(value as number)}
                         </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
-            </section>
+            </ContentCard>
 
-            <section className="mt-8 rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8">
-              <h2 className="text-2xl font-semibold mb-4">
-                Trendyol Kazanç Nasıl Hesaplanır?
-              </h2>
-
-              <p className="text-white/70 mb-5">
-                Net kazanç hesaplanırken satış fiyatından ürün maliyeti,
-                komisyon, kargo ve KDV gibi giderler düşülür. Bu yüzden sadece
-                satış fiyatına bakmak yanıltıcıdır; önemli olan satış sonunda
-                cebinde kalan gerçek tutardır.
+            <ContentCard title="Trendyol Kazanç Nasıl Hesaplanır?">
+              <p className="text-white/70">
+                Trendyol kazanç hesaplamasında satış fiyatından ürün maliyeti,
+                Trendyol komisyonu, kargo ücreti ve KDV gibi giderler düşülür.
+                Satış fiyatı yüksek görünse bile tüm giderler düşüldüğünde net
+                kâr beklenenden daha düşük çıkabilir.
               </p>
 
-              <div className="rounded-2xl border border-green-400/20 bg-green-400/10 p-5">
-                <h3 className="font-semibold text-green-300 mb-2">Formül</h3>
-                <p className="text-white/75">
+              <div className="mt-5 rounded-2xl border border-green-400/20 bg-green-400/10 p-5">
+                <h3 className="mb-2 font-semibold text-green-300">Formül</h3>
+                <p className="text-white/80">
                   Net Kazanç = Satış Fiyatı - Ürün Maliyeti - Komisyon - Kargo
                   - KDV
                 </p>
               </div>
-            </section>
+            </ContentCard>
 
-            <section className="mt-8 rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8">
-              <h2 className="text-2xl font-semibold mb-5">Örnek Hesaplama</h2>
-
+            <ContentCard title="Örnek Trendyol Kazanç Hesaplama">
               <p className="text-white/70">
                 1.200 TL satış fiyatı, 650 TL ürün maliyeti, %17 komisyon, 200
                 TL kargo ve %20 KDV ile satış yapan bir satıcı için net kazanç
-                yaklaşık 146 TL seviyesine düşebilir. Bu yüzden ürün fiyatı
-                belirlerken tüm giderleri aynı anda hesaba katmak gerekir.
+                ciddi şekilde düşebilir. Bu yüzden ürün fiyatı belirlenirken
+                sadece alış maliyetine değil, tüm satış giderlerine birlikte
+                bakılmalıdır.
               </p>
-            </section>
+            </ContentCard>
 
-            <section className="mt-8 rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8">
-              <h2 className="text-2xl font-semibold mb-5">
-                Sık Sorulan Sorular
-              </h2>
-
+            <ContentCard title="Sık Sorulan Sorular">
               <div className="space-y-5">
-                <div>
-                  <h3 className="font-semibold text-green-300">
-                    Trendyol komisyon oranı sabit mi?
-                  </h3>
-                  <p className="text-white/65 mt-2">
-                    Hayır. Komisyon oranı kategoriye göre değişebilir. Bu yüzden
-                    hesaplama yaparken kendi ürün kategorindeki oranı
-                    girmelisin.
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="font-semibold text-green-300">
-                    KDV satış fiyatından mı hesaplanır?
-                  </h3>
-                  <p className="text-white/65 mt-2">
-                    Bu araç satış fiyatı KDV dahil varsayımıyla tahmini KDV
-                    tutarını ayırır. Muhasebe açısından kesin bilgi için mali
-                    müşavire danışılmalıdır.
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="font-semibold text-green-300">
-                    Reklam giderleri dahil mi?
-                  </h3>
-                  <p className="text-white/65 mt-2">
-                    Hayır. Reklam, iade, paketleme ve fire gibi ek giderlerin
-                    ayrıca hesaba katılması gerekir.
-                  </p>
-                </div>
+                <FAQ
+                  q="Trendyol komisyon oranı sabit mi?"
+                  a="Hayır. Komisyon oranı ürün kategorisine göre değişebilir. Bu yüzden hesaplama yaparken kendi kategorindeki güncel oranı girmelisin."
+                />
+                <FAQ
+                  q="KDV satış fiyatından mı hesaplanır?"
+                  a="Bu araç satış fiyatı KDV dahil varsayımıyla tahmini KDV tutarını ayırır. Net muhasebe sonucu için mali müşavire danışılmalıdır."
+                />
+                <FAQ
+                  q="Reklam giderleri dahil mi?"
+                  a="Hayır. Reklam, iade, paketleme, fire ve kampanya maliyetleri ayrıca değerlendirilmelidir."
+                />
+                <FAQ
+                  q="Trendyol’da kâr marjı kaç olmalı?"
+                  a="Ürün grubuna göre değişir. Ancak komisyon, kargo, KDV ve iade riski olan ürünlerde çok düşük marjla satış yapmak sürdürülebilir olmayabilir."
+                />
               </div>
-            </section>
+            </ContentCard>
           </div>
 
-          <aside className="space-y-6">
+          {/* SIDEBAR */}
+          <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
             <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
-              <h3 className="font-semibold mb-4">Popüler Araçlar</h3>
-
+              <h3 className="mb-4 font-semibold">Popüler Araçlar</h3>
               <div className="space-y-3 text-sm">
-                <a
-                  href="/trendyol-kazanc-hesaplama"
-                  className="block rounded-xl bg-green-400/10 border border-green-400/20 px-4 py-3 text-green-300"
-                >
+                <SideLink active href="/trendyol-kazanc-hesaplama">
                   Trendyol Kazanç Hesaplama
-                </a>
-
-                <a
-                  href="/kredi-hesaplama"
-                  className="block rounded-xl bg-white/5 border border-white/10 px-4 py-3 hover:border-green-400/40"
-                >
-                  Kredi Hesaplama
-                </a>
-
-                <a
-                  href="/faiz-hesaplama"
-                  className="block rounded-xl bg-white/5 border border-white/10 px-4 py-3 hover:border-green-400/40"
-                >
-                  Faiz Hesaplama
-                </a>
+                </SideLink>
+                <SideLink href="/kredi-hesaplama">Kredi Hesaplama</SideLink>
+                <SideLink href="/faiz-hesaplama">Faiz Hesaplama</SideLink>
               </div>
             </div>
 
             <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
-              <h3 className="font-semibold mb-3">Kısa Bilgi</h3>
-              <p className="text-sm text-white/65">
-                Trendyol’da kârlı satış için komisyon, kargo, KDV ve ürün
-                maliyetini birlikte değerlendirmek gerekir.
+              <h3 className="mb-3 font-semibold">Kısa Bilgi</h3>
+              <p className="text-sm leading-6 text-white/65">
+                Trendyol’da gerçek kârı görmek için komisyon, kargo, KDV ve
+                ürün maliyeti birlikte hesaplanmalıdır.
               </p>
             </div>
 
-            <div className="rounded-3xl border border-dashed border-white/15 bg-white/[0.03] p-6 h-64 flex items-center justify-center text-white/30 text-sm">
+            <div className="flex h-64 items-center justify-center rounded-3xl border border-dashed border-white/15 bg-white/[0.03] p-6 text-sm text-white/30">
               Reklam Alanı
-            </div>
-
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
-              <h3 className="font-semibold mb-3">Benzer Konular</h3>
-
-              <ul className="text-sm text-white/65 space-y-3">
-                <li>Trendyol komisyon oranı nasıl hesaplanır?</li>
-                <li>E-ticarette kâr marjı kaç olmalı?</li>
-                <li>Kargo maliyeti ürün fiyatına nasıl eklenir?</li>
-              </ul>
             </div>
           </aside>
         </div>
       </section>
     </main>
+  );
+}
+
+function Field({
+  label,
+  value,
+  setValue,
+  placeholder,
+}: {
+  label: string;
+  value: string;
+  setValue: (value: string) => void;
+  placeholder: string;
+}) {
+  return (
+    <label className="block">
+      <span className="mb-2 block text-sm text-white/70">{label}</span>
+      <input
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        type="number"
+        placeholder={placeholder}
+        className="w-full rounded-xl border border-white/10 bg-[#0B1220] px-4 py-3 outline-none transition focus:border-green-400"
+      />
+    </label>
+  );
+}
+
+function ResultRow({
+  label,
+  value,
+  strong = false,
+}: {
+  label: string;
+  value: string;
+  strong?: boolean;
+}) {
+  return (
+    <div className="flex justify-between border-b border-white/10 pb-3 text-sm last:border-0">
+      <span className="text-white/60">{label}</span>
+      <strong className={strong ? "text-green-300" : "text-white"}>
+        {value}
+      </strong>
+    </div>
+  );
+}
+
+function ContentCard({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section className="mt-8 rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8">
+      <h2 className="mb-5 text-2xl font-semibold">{title}</h2>
+      {children}
+    </section>
+  );
+}
+
+function FAQ({ q, a }: { q: string; a: string }) {
+  return (
+    <div>
+      <h3 className="font-semibold text-green-300">{q}</h3>
+      <p className="mt-2 text-white/65">{a}</p>
+    </div>
+  );
+}
+
+function SideLink({
+  href,
+  children,
+  active = false,
+}: {
+  href: string;
+  children: React.ReactNode;
+  active?: boolean;
+}) {
+  return (
+    <a
+      href={href}
+      className={`block rounded-xl border px-4 py-3 ${
+        active
+          ? "border-green-400/20 bg-green-400/10 text-green-300"
+          : "border-white/10 bg-white/5 hover:border-green-400/40"
+      }`}
+    >
+      {children}
+    </a>
   );
 }
